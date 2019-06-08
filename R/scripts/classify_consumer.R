@@ -1,5 +1,6 @@
 # Load the required functions and packages
 source('create_model_input.R')
+source('prediction_to_csv.R')
 library('e1071')
 library("optparse")
 library('rkafka')
@@ -13,12 +14,13 @@ features <- readRDS('features.rds')
 model <- readRDS('svm.rds')
 
 consumer=rkafka.createConsumer("10.0.100.22:2181","tap")
-
+id <- 0
 while(1)
 {
   tweet=rkafka.read(consumer)
   #print(tweet)
   if (tweet != "") { 
+    id = id+1
     tweetObj=fromJSON(tweet)
     tweetText=stri_enc_toascii(tweetObj$text)
     print(tweetText)
@@ -29,6 +31,8 @@ while(1)
     predictionValue=as.String(prediction)
     print("Prediction")
     print(predictionValue)
+    
+    prediction_to_csv(id,tweetText,predictionValue)
   }
 }
 rkafka.closeConsumer(consumer)
