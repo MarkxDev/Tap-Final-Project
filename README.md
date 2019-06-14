@@ -1,4 +1,19 @@
 # tap
+# Twitter Sentiment Analysis
+
+Software architecture capable of processing a data stream from Twitter with a given hashtag in real time.
+In particular in this project I have used three of the most trendy hashtags in this historical period in Italy:
+#Salvini; #DiMaio; #Conte
+
+* Twitter is the netcat source with the help of some of its APIs
+* Data Ingestion via Apache Flume
+* Streaming via Apache Kafka
+* Coordination via Zookeeper
+* Docker Container technology
+* Storage via csv file
+* The sentiment analysis of tweets is done by scripts in R
+* The visualization through the graphs is made by Tableau
+
 ## ip
 * 10.0.100.10 flume
 * 10.0.100.22 zk-server
